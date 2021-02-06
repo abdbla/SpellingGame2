@@ -9,7 +9,7 @@ namespace SpellingUnitTest
         [Test]
         public void SerializationTest() {
             //setup
-            SpellRecipe spellRecipe = new SpellRecipe(new List<Aspect>() { Aspect.Aer, Aspect.Ordo }, new List<(Practice, Lore)>() { (Practice.Knowing, Lore.LorePrime) }, SpellRecipeID.TestRecipe);
+            SpellRecipe spellRecipe = new SpellRecipe(new List<(Aspect, int)>() { (Aspect.Aer, 3), (Aspect.Ordo, 1) }, new List<(Practice, Lore)>() { (Practice.Knowing, Lore.LorePrime) }, SpellRecipeID.TestRecipe);
             Dictionary<SpellRecipeID, SpellRecipe> SpellRecipes = new Dictionary<SpellRecipeID, SpellRecipe>();
             SpellRecipes.Add(SpellRecipeID.TestRecipe, spellRecipe);
             SpellRecipeXmlHandler.SpellRecipesSerialize(SpellRecipes);
@@ -19,6 +19,21 @@ namespace SpellingUnitTest
 
             //assert
             Assert.AreEqual(deserializedRecipes[SpellRecipeID.TestRecipe], spellRecipe);
+        }
+
+        [Test]
+        public void ExtensionTest() {
+            //setup
+            Aspect aspect = Aspect.Mors;
+            Lore lore = Lore.LoreDeath;
+
+            //test
+            string sLore = lore.LoreToString();
+            Rarity rAspect = aspect.AspectRarity();
+
+            //assert
+            Assert.AreEqual(rAspect, Rarity.Complex);
+            Assert.AreEqual(sLore, "The Principles of the World Below");
         }
     }
 }

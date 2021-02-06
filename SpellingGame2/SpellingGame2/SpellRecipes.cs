@@ -35,11 +35,11 @@ namespace SpellingGame2
     [Serializable]
     public struct SpellRecipe
     {
-        public List<Aspect> aspects;
+        public List<(Aspect, int)> aspects;
         public List<(Practice, Lore)> practices;
         public SpellRecipeID id;
 
-        public SpellRecipe(List<Aspect> _aspects, List<(Practice, Lore)> _practices, SpellRecipeID _id) {
+        public SpellRecipe(List<(Aspect, int)> _aspects, List<(Practice, Lore)> _practices, SpellRecipeID _id) {
             aspects = _aspects;
             practices = _practices;
             id = _id;
@@ -95,6 +95,18 @@ namespace SpellingGame2
         Terra,
         Ordo,
         Perditio,
+        Fulmen,
+        Vanus,
+        Venenum,
+        Gelum,
+        Potentia,
+        Acidum,
+        Vitae,
+        Metallum,
+        Mors,
+        Anima,
+        Bestia,
+        Praecantatio
     }
 
     [Serializable]
@@ -111,7 +123,16 @@ namespace SpellingGame2
         LoreTime,
     }
 
-    public static class LoreExtension
+    public enum Rarity
+    {
+        Primal,
+        Elemental,
+        Complex,
+        Intricate,
+        Manifold
+    }
+
+    public static class Extensions
     {
         public static string LoreToString(this Lore lore) {
             switch (lore) {
@@ -136,6 +157,34 @@ namespace SpellingGame2
                 default:
                     return "An Error Has Occurred";
             }
+        }
+
+        public static Rarity AspectRarity(this Aspect aspect) {
+            switch (aspect) {
+                default:
+                case Aspect.Aer:
+                case Aspect.Aqua:
+                case Aspect.Ignis:
+                case Aspect.Terra:
+                case Aspect.Ordo:
+                case Aspect.Perditio:
+                    return Rarity.Primal;
+                case Aspect.Fulmen:
+                case Aspect.Vanus:
+                case Aspect.Venenum:
+                case Aspect.Gelum:
+                case Aspect.Potentia:
+                case Aspect.Acidum:
+                case Aspect.Vitae:
+                case Aspect.Metallum:
+                    return Rarity.Elemental;
+                case Aspect.Mors:
+                case Aspect.Anima:
+                case Aspect.Bestia:
+                case Aspect.Praecantatio:
+                    return Rarity.Complex;
+            }
+
         }
     }
 }
