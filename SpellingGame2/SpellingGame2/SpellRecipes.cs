@@ -6,22 +6,22 @@ using System.Xml.Serialization;
 
 namespace SpellingGame2
 {
-    public static class RecipeXmlHandler
+    public static class SpellRecipeXmlHandler
     {
-        static public Dictionary<RecipeID, Recipe> RecipesDeserialize() {
-            XmlSerializer serializer = new XmlSerializer(typeof(Recipe));
-            Dictionary<RecipeID, Recipe> recipes = new Dictionary<RecipeID, Recipe>();
+        static public Dictionary<SpellRecipeID, SpellRecipe> SpellRecipesDeserialize() {
+            XmlSerializer serializer = new XmlSerializer(typeof(SpellRecipe));
+            Dictionary<SpellRecipeID, SpellRecipe> SpellRecipes = new Dictionary<SpellRecipeID, SpellRecipe>();
             foreach (var item in Directory.GetFiles(@"..\..\..\..\recipes\")) {
                 using (FileStream input = new FileStream(item, FileMode.OpenOrCreate, FileAccess.Read)) {
-                    Recipe tmp = (Recipe)serializer.Deserialize(input);
-                    recipes.Add(tmp.id, tmp);
+                    SpellRecipe tmp = (SpellRecipe)serializer.Deserialize(input);
+                    SpellRecipes.Add(tmp.id, tmp);
                 }
             }
-            return recipes;
+            return SpellRecipes;
         }
-        static public void RecipesSerialize(Dictionary<RecipeID,Recipe> recipes) {
-            XmlSerializer serializer = new XmlSerializer(typeof(Recipe));
-            foreach (var item in recipes) {
+        static public void SpellRecipesSerialize(Dictionary<SpellRecipeID, SpellRecipe> SpellRecipes) {
+            XmlSerializer serializer = new XmlSerializer(typeof(SpellRecipe));
+            foreach (var item in SpellRecipes) {
                 StringBuilder path = new StringBuilder(@"..\..\..\..\recipes\");
                 path.Append(item.Key.ToString());
                 path.Append(".xml");
@@ -33,28 +33,36 @@ namespace SpellingGame2
     }
 
     [Serializable]
-    public struct Recipe
+    public struct SpellRecipe
     {
         public List<Aspect> aspects;
         public List<Practice> practices;
-        public RecipeID id;
+        public SpellRecipeID id;
 
-        public Recipe(List<Aspect> _aspects, List<Practice> _practices, RecipeID _id) {
+        public SpellRecipe(List<Aspect> _aspects, List<Practice> _practices, SpellRecipeID _id) {
             aspects = _aspects;
             practices = _practices;
             id = _id;
         }
 
         public override bool Equals(object obj) {
-            if (obj.GetType() == typeof(Recipe)) {
-                return ((Recipe)obj).id == this.id;
+            if (obj.GetType() == typeof(SpellRecipe)) {
+                return ((SpellRecipe)obj).id == this.id;
             }
             return false;
+        }
+
+        public override int GetHashCode() {
+            return base.GetHashCode();
+        }
+
+        public override string ToString() {
+            return base.ToString();
         }
     }
 
     [Serializable]
-    public enum RecipeID
+    public enum SpellRecipeID
     {
         SeeTheWinds,
         TestRecipe

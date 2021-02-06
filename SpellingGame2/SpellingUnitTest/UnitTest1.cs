@@ -9,16 +9,16 @@ namespace SpellingUnitTest
         [Test]
         public void SerializationTest() {
             //setup
-            Recipe recipe = new Recipe(new List<Aspect>() { Aspect.Aer, Aspect.Ordo }, new List<Practice>() { Practice.Knowing }, RecipeID.TestRecipe);
-            Dictionary<RecipeID, Recipe> recipes = new Dictionary<RecipeID, Recipe>();
-            recipes.Add(RecipeID.TestRecipe, recipe);
-            RecipeXmlHandler.RecipesSerialize(recipes);
+            SpellRecipe spellRecipe = new SpellRecipe(new List<Aspect>() { Aspect.Aer, Aspect.Ordo }, new List<Practice>() { Practice.Knowing }, SpellRecipeID.TestRecipe);
+            Dictionary<SpellRecipeID, SpellRecipe> SpellRecipes = new Dictionary<SpellRecipeID, SpellRecipe>();
+            SpellRecipes.Add(SpellRecipeID.TestRecipe, spellRecipe);
+            SpellRecipeXmlHandler.SpellRecipesSerialize(SpellRecipes);
 
             //test
-            var deserializedRecipes = RecipeXmlHandler.RecipesDeserialize();
+            var deserializedRecipes = SpellRecipeXmlHandler.SpellRecipesDeserialize();
 
             //assert
-            Assert.AreEqual(deserializedRecipes[RecipeID.TestRecipe], recipe);
+            Assert.AreEqual(deserializedRecipes[SpellRecipeID.TestRecipe], spellRecipe);
         }
     }
 }
