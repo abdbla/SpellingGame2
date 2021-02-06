@@ -36,10 +36,10 @@ namespace SpellingGame2
     public struct SpellRecipe
     {
         public List<Aspect> aspects;
-        public List<Practice> practices;
+        public List<(Practice, Lore)> practices;
         public SpellRecipeID id;
 
-        public SpellRecipe(List<Aspect> _aspects, List<Practice> _practices, SpellRecipeID _id) {
+        public SpellRecipe(List<Aspect> _aspects, List<(Practice, Lore)> _practices, SpellRecipeID _id) {
             aspects = _aspects;
             practices = _practices;
             id = _id;
@@ -71,19 +71,19 @@ namespace SpellingGame2
     [Serializable]
     public enum Practice
     {
-        Compelling,
-        Knowing,
-        Unveiling,
-        Ruling,
-        Shielding,
-        Veiling,
-        Fraying,
-        Perfecting,
-        Weaving,
-        Patterning,
-        Unraveling,
-        Making,
-        Unmaking
+        Compelling = 1,
+        Knowing = 1,
+        Unveiling = 1,
+        Ruling = 2,
+        Shielding = 2,
+        Veiling = 2,
+        Fraying = 3,
+        Perfecting = 3,
+        Weaving = 3,
+        Patterning = 4,
+        Unraveling = 4,
+        Making = 5,
+        Unmaking = 5
     }
 
     [Serializable]
@@ -95,5 +95,47 @@ namespace SpellingGame2
         Terra,
         Ordo,
         Perditio,
+    }
+
+    [Serializable]
+    public enum Lore
+    {
+        LoreDeath,
+        LoreFate,
+        LoreForces,
+        LoreLife,
+        LoreMatter,
+        LoreMind,
+        LorePrime,
+        LoreSpace,
+        LoreTime,
+    }
+
+    public static class LoreExtension
+    {
+        public static string LoreToString(this Lore lore) {
+            switch (lore) {
+                case Lore.LoreDeath:
+                    return "The Principles of the World Below";
+                case Lore.LoreFate:
+                    return "The Principles of the Loom in Heaven";
+                case Lore.LoreForces:
+                    return "The Principles of the Sun";
+                case Lore.LoreLife:
+                    return "The Principles of the Earth That Was";
+                case Lore.LoreMatter:
+                    return "The Principles of the Earth That Is";
+                case Lore.LoreMind:
+                    return "The Principles of the World Inside";
+                case Lore.LorePrime:
+                    return "The Prime Principalities";
+                case Lore.LoreSpace:
+                    return "The Principles of the Weave in Exile";
+                case Lore.LoreTime:
+                    return "The Principles of the Moon";
+                default:
+                    return "An Error Has Occurred";
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace SpellingUnitTest
         [Test]
         public void SerializationTest() {
             //setup
-            SpellRecipe spellRecipe = new SpellRecipe(new List<Aspect>() { Aspect.Aer, Aspect.Ordo }, new List<Practice>() { Practice.Knowing }, SpellRecipeID.TestRecipe);
+            SpellRecipe spellRecipe = new SpellRecipe(new List<Aspect>() { Aspect.Aer, Aspect.Ordo }, new List<(Practice, Lore)>() { (Practice.Knowing, Lore.LorePrime) }, SpellRecipeID.TestRecipe);
             Dictionary<SpellRecipeID, SpellRecipe> SpellRecipes = new Dictionary<SpellRecipeID, SpellRecipe>();
             SpellRecipes.Add(SpellRecipeID.TestRecipe, spellRecipe);
             SpellRecipeXmlHandler.SpellRecipesSerialize(SpellRecipes);

@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
-<Recipe xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<SpellRecipe xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <aspects>
     <Aspect>Aer</Aspect>
     <Aspect>Ordo</Aspect>
   </aspects>
   <practices>
-    <Practice>Knowing</Practice>
+    <ValueTupleOfPracticeLore>
+      <Item1>Compelling</Item1>
+      <Item2>LorePrime</Item2>
+    </ValueTupleOfPracticeLore>
   </practices>
   <id>TestRecipe</id>
-</Recipe>
+</SpellRecipe>
