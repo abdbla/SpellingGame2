@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SpellingUnitTest
 {
-    public class Tests
+    public class SpellRecipeTests
     {
         [Test]
         public void SerializationTest() {

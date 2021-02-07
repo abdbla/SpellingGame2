@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Commission xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <requiredRitual>TestRecipe</requiredRitual>
+  <requiredEssentia>
+    <ValueTupleOfAspectInt32>
+      <Item1>Aer</Item1>
+      <Item2>5</Item2>
+    </ValueTupleOfAspectInt32>
+  </requiredEssentia>
+  <type>Essentia</type>
+  <id>TestCommission</id>
+  <desc />
+</Commission>
