@@ -97,20 +97,58 @@ namespace SpellingGame2
             throw new NotImplementedException();
         }
 
-        void IUserInterface.WriteIntoDescription(string description) {
-            throw new NotImplementedException();
+        void IUserInterface.WriteIntoDescription(string description, bool newLine) {
+            writeDescription(description, ConsoleColor.White, ConsoleColor.Black, newLine);
         }
 
-        void IUserInterface.WriteIntoDescription(string description, ConsoleColor foreground, ConsoleColor background) {
-            throw new NotImplementedException();
+        void IUserInterface.WriteIntoDescription(string description, ConsoleColor foreground, ConsoleColor background, bool newLine) {
+            writeDescription(description, foreground, background, newLine);
         }
 
-        void IUserInterface.SetStatus(List<string> statistics) { //Note to self, set status has to reset selectedStatistic
-            throw new NotImplementedException();
+        private void writeDescription(string description, ConsoleColor foreground, ConsoleColor background, bool newLine = true) { //note to self: change magic numbers for 12 + title.split.length
+            Console.SetCursorPosition(currentDescPos.Item1, currentDescPos.Item2);
+            Console.ForegroundColor = foreground;
+            Console.BackgroundColor = background;
+            foreach (var item in GetSplit(description, Console.BufferWidth - 8)) {
+                WriteSlowly(item, 4);
+                currentDescPos.Item2++;
+                Console.SetCursorPosition(currentDescPos.Item1, currentDescPos.Item2);
+                if (Console.CursorTop >= descriptionHeight - 2) {
+                    Console.CursorTop = descriptionHeight - 3;
+                    Console.MoveBufferArea(5, 14, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 13);
+                }
+            }
+            if (newLine) {
+                Console.Write("\n");
+                if (Console.CursorTop >= descriptionHeight - 2) {
+                    Console.CursorTop = descriptionHeight - 3;
+                    Console.MoveBufferArea(5, 14, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 13);
+                }
+                Console.Write("\n");
+                if (Console.CursorTop >= descriptionHeight - 2) {
+                    Console.CursorTop = descriptionHeight - 3;
+                    Console.MoveBufferArea(5, 14, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 13);
+                }
+            }
+            currentDescPos = (GetSplit(description, Console.BufferWidth - 8)[GetSplit(description, Console.BufferWidth - 8).Length - 1].Length + 1, currentDescPos.Item2 + GetSplit(description, Console.BufferWidth - 8).Length);
+            if (newLine) { currentDescPos.Item2 = Console.CursorTop; currentDescPos.Item1 = 5; }
+            if (currentDescPos.Item2 >= descriptionHeight - 2) {
+                currentDescPos.Item2 = descriptionHeight - 3;
+            }
         }
 
-        void IUserInterface.SetStatus(List<(string, ConsoleColor, ConsoleColor)> statistics) {
-            throw new NotImplementedException();
+        void IUserInterface.SetStatus(List<string> _statistics) {
+            List<(string, ConsoleColor, ConsoleColor)> tmp = new List<(string, ConsoleColor, ConsoleColor)>();
+            foreach (var item in _statistics) {
+                tmp.Add((item, ConsoleColor.White, ConsoleColor.Black));
+            }
+            statistics = tmp;
+            selectedStat = 0;
+        }
+
+        void IUserInterface.SetStatus(List<(string, ConsoleColor, ConsoleColor)> _statistics) {
+            statistics = _statistics;
+            selectedStat = 0;
         }
 
         public UI() {
@@ -246,7 +284,7 @@ namespace SpellingGame2
 
         private string[] GetSplit(string text, int maxWidth) {
             if (text.Length <= maxWidth) return new string[] { text };
-            string[] whitespaceSplit = text.Split(' ');
+            string[] whitespaceSplit = text.Split(new string[] { " ", "\n" }, StringSplitOptions.None);
             bool whitespaceConditional = true;
             foreach (var item in whitespaceSplit) {
                 if (item.Length > maxWidth) {
@@ -258,8 +296,8 @@ namespace SpellingGame2
             if (whitespaceConditional) {
                 List<StringBuilder> assembledSplit = new List<StringBuilder>();
                 int j = 0;
+                assembledSplit.Add(new StringBuilder());
                 for (int i = 0; i < whitespaceSplit.Length; i++) {
-                    assembledSplit.Add(new StringBuilder());
                     if (assembledSplit[j].Length + whitespaceSplit[i].Length + 1 <= maxWidth) {
                         assembledSplit[j].Append(" ");
                         assembledSplit[j].Append(whitespaceSplit[i]);
