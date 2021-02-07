@@ -17,7 +17,10 @@ namespace SpellingGame2
         int descriptionHeight = Console.LargestWindowHeight - 14;
         (int, int) currentDescPos = (5, 14);
 
+        const int DESC_SPEED = 1;
+
         string title = "Default";
+        (ConsoleColor, ConsoleColor) titleColor = (ConsoleColor.White, ConsoleColor.Black);
         string description = "lorem ipsum";
         List<(string, ConsoleColor, ConsoleColor)> options = new List<(string, ConsoleColor, ConsoleColor)>() { ("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", ConsoleColor.White, ConsoleColor.Black), ("ipsum", ConsoleColor.White, ConsoleColor.Black), ("dolor", ConsoleColor.White, ConsoleColor.Black), ("sit", ConsoleColor.White, ConsoleColor.Black), ("amet", ConsoleColor.White, ConsoleColor.Black) }; 
         List<(string, ConsoleColor, ConsoleColor)> statistics = new List<(string, ConsoleColor, ConsoleColor)>() { ("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", ConsoleColor.White, ConsoleColor.Black), ("ipsum", ConsoleColor.White, ConsoleColor.Black), ("dolor", ConsoleColor.White, ConsoleColor.Black), ("sit", ConsoleColor.White, ConsoleColor.Black), ("amet", ConsoleColor.White, ConsoleColor.Black) };
@@ -71,16 +74,20 @@ namespace SpellingGame2
             }
         }
 
-        void IUserInterface.ChangeTitle(string title) { //Note to self, needs to move description if enlargened title.
-            throw new NotImplementedException();
+        void IUserInterface.ChangeTitle(string _title) { //Note to self, needs to move description if enlargened title.
+            title = _title;
+            DrawTitle();
         }
 
-        void IUserInterface.ChangeTitle(string title, ConsoleColor foreground, ConsoleColor background) {
-            throw new NotImplementedException();
+        void IUserInterface.ChangeTitle(string _title, ConsoleColor foreground, ConsoleColor background) {
+            title = _title;
+            titleColor = (foreground, background);
+            DrawTitle();
         }
 
         void IUserInterface.ClearDescription() {
-            throw new NotImplementedException();
+            ClearArea(12 + GetSplit(title, titleWidth - 4).Length, 5, Console.BufferWidth - 8, descriptionHeight - (12 + GetSplit(title, titleWidth - 4).Length));
+            currentDescPos = (5, 12 + GetSplit(title, titleWidth - 4).Length);
         }
 
         void IUserInterface.SetOptions(string id, List<string> _options) {
@@ -91,10 +98,14 @@ namespace SpellingGame2
                 tmp.Add((item, ConsoleColor.White, ConsoleColor.Black));
             }
             options = tmp;
+            DrawOptions();
         }
 
-        void IUserInterface.SetOptions(string id, List<(string, ConsoleColor, ConsoleColor)> options) {
-            throw new NotImplementedException();
+        void IUserInterface.SetOptions(string id, List<(string, ConsoleColor, ConsoleColor)> _options) {
+            selectedOption = 0;
+            currentChoice = id;
+            options = _options;
+            DrawOptions();
         }
 
         void IUserInterface.WriteIntoDescription(string description, bool newLine) {
@@ -105,29 +116,29 @@ namespace SpellingGame2
             writeDescription(description, foreground, background, newLine);
         }
 
-        private void writeDescription(string description, ConsoleColor foreground, ConsoleColor background, bool newLine = true) { //note to self: change magic numbers for 12 + title.split.length
+        private void writeDescription(string description, ConsoleColor foreground, ConsoleColor background, bool newLine = true) { 
             Console.SetCursorPosition(currentDescPos.Item1, currentDescPos.Item2);
             Console.ForegroundColor = foreground;
             Console.BackgroundColor = background;
             foreach (var item in GetSplit(description, Console.BufferWidth - 8)) {
-                WriteSlowly(item, 4);
+                WriteSlowly(item, DESC_SPEED);
                 currentDescPos.Item2++;
                 Console.SetCursorPosition(currentDescPos.Item1, currentDescPos.Item2);
                 if (Console.CursorTop >= descriptionHeight - 2) {
                     Console.CursorTop = descriptionHeight - 3;
-                    Console.MoveBufferArea(5, 14, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 13);
+                    Console.MoveBufferArea(5, 13 + GetSplit(title, titleWidth - 4).Length, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 12 + GetSplit(title, titleWidth - 4).Length);
                 }
             }
             if (newLine) {
                 Console.Write("\n");
                 if (Console.CursorTop >= descriptionHeight - 2) {
                     Console.CursorTop = descriptionHeight - 3;
-                    Console.MoveBufferArea(5, 14, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 13);
+                    Console.MoveBufferArea(5, 13 + GetSplit(title, titleWidth - 4).Length, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 12 + GetSplit(title, titleWidth - 4).Length);
                 }
                 Console.Write("\n");
                 if (Console.CursorTop >= descriptionHeight - 2) {
                     Console.CursorTop = descriptionHeight - 3;
-                    Console.MoveBufferArea(5, 14, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 13);
+                    Console.MoveBufferArea(5, 13 + GetSplit(title, titleWidth - 4).Length, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 12 + GetSplit(title, titleWidth - 4).Length);
                 }
             }
             currentDescPos = (GetSplit(description, Console.BufferWidth - 8)[GetSplit(description, Console.BufferWidth - 8).Length - 1].Length + 1, currentDescPos.Item2 + GetSplit(description, Console.BufferWidth - 8).Length);
@@ -153,12 +164,6 @@ namespace SpellingGame2
 
         public UI() {
             Console.BufferHeight = Console.LargestWindowHeight;
-            DrawLines();
-            DrawOptions();
-            DrawStatistics();
-        }
-
-        private void DrawLines() {
             if (Console.BufferWidth != 240) {
                 Console.BackgroundColor = ConsoleColor.Red;
                 Console.WriteLine("Set the console to fullscreen!");
@@ -166,6 +171,14 @@ namespace SpellingGame2
             while (Console.BufferWidth != 240) { }
             Console.ResetColor();
             Console.Clear();
+            DrawLines();
+            DrawOptions();
+            DrawStatistics();
+            DrawTitle();
+        }
+
+        private void DrawLines() {
+            Console.ResetColor();
             Console.SetCursorPosition(0, descriptionHeight);
             WriteChars('-', Console.BufferWidth);
             Console.SetCursorPosition(((Console.BufferWidth - titleWidth) / 2) - 1, 3);
@@ -251,12 +264,14 @@ namespace SpellingGame2
             Console.SetCursorPosition(left, top);
         }
 
-        private void DrawDescription() {
-            Console.SetCursorPosition(5, 13 + GetSplit(title, titleWidth - 4).Length);
-        }
-
         private void DrawTitle() {
-
+            Console.ForegroundColor = titleColor.Item1;
+            Console.BackgroundColor = titleColor.Item2;
+            for (int i = 0; i < GetSplit(title, titleWidth - 4).Length; i++) {
+                Console.SetCursorPosition((Console.BufferWidth - title.Length) / 2, 5 + i);
+                Console.Write(GetSplit(title, titleWidth - 4)[i]);
+            }
+            Console.ResetColor();
         }
 
         private void DrawStatistics() {
@@ -346,7 +361,7 @@ namespace SpellingGame2
         private void WriteSlowly(string text, int delay) {
             for (int i = 0; i < text.Length; i++) {
                 Console.Write(text[i]);
-                Thread.Sleep(delay);
+                Thread.Sleep(TimeSpan.FromMilliseconds(delay));
             }
         }
     }
