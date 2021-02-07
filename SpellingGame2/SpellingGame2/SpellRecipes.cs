@@ -64,7 +64,9 @@ namespace SpellingGame2
     [Serializable]
     public enum SpellRecipeID
     {
-        SeeTheWinds,
+        MinorLuck,
+        ReadTheFlesh,
+        NaturalHealing,
         TestRecipe
     }
 

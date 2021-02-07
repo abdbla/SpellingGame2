@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<SpellRecipe xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <aspects>
+    <ValueTupleOfAspectInt32>
+      <Item1>Aqua</Item1>
+      <Item2>3</Item2>
+    </ValueTupleOfAspectInt32>
+    <ValueTupleOfAspectInt32>
+      <Item1>Ordo</Item1>
+      <Item2>1</Item2>
+    </ValueTupleOfAspectInt32>
+  </aspects>
+  <practices>
+    <ValueTupleOfPracticeLore>
+      <Item1>Compelling</Item1>
+      <Item2>LorePrime</Item2>
+    </ValueTupleOfPracticeLore>
+  </practices>
+  <id>NaturalHealing</id>
+</SpellRecipe>

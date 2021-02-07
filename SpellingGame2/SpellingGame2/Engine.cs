@@ -6,6 +6,11 @@ namespace SpellingGame2
 {
     class Engine
     {
-        public EventHandler dayEnd;
+        public EventHandler<DayEndEventArgs> dayEnd;
+
+        public class DayEndEventArgs : EventArgs
+        {
+
+        }
     }
 }
