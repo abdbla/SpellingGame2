@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<Commission xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <requiredRitual>NaturalHealing</requiredRitual>
+  <type>Ritual</type>
+  <id>Ritual3</id>
+  <desc />
+</Commission>

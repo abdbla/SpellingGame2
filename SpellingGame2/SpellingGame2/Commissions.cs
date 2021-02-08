@@ -34,6 +34,12 @@ namespace SpellingGame2
 
     public enum CommissionID
     {
+        Ritual1,
+        Ritual2,
+        Ritual3,
+        Essentia1,
+        Essentia2,
+        Essentia3,
         TestCommission,
     }
 

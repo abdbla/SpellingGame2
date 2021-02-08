@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Commission xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <requiredRitual>TestRecipe</requiredRitual>
+  <requiredEssentia>
+    <ValueTupleOfAspectInt32>
+      <Item1>Perditio</Item1>
+      <Item2>2</Item2>
+    </ValueTupleOfAspectInt32>
+	<ValueTupleOfAspectInt32>
+	  <Item1>Ordo</Item1>
+	  <Item2>2</Item2>
+	</ValueTupleOfAspectInt32>
+  </requiredEssentia>
+  <type>Essentia</type>
+  <id>Essentia2</id>
+  <desc />
+</Commission>
