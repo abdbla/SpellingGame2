@@ -36,7 +36,7 @@ namespace SpellingGame2
             }
         }
 
-        void IUserInterface.GetInput() {
+        string IUserInterface.GetInput() {
             while (true) {
                 switch (Console.ReadKey(true).Key) {
                     case ConsoleKey.UpArrow:
@@ -65,12 +65,11 @@ namespace SpellingGame2
                         break;
                     case ConsoleKey.Enter:
                         optionSelected(this, new InterfaceEventArgs(currentChoice, options[selectedOption].Item1));
-                        return;
+                        return options[selectedOption].Item1;
                     default: 
                         break;
                 }
                 DrawOptions();
-                DrawStatistics();
             }
         }
 
@@ -155,11 +154,13 @@ namespace SpellingGame2
             }
             statistics = tmp;
             selectedStat = 0;
+            DrawStatistics();
         }
 
         void IUserInterface.SetStatus(List<(string, ConsoleColor, ConsoleColor)> _statistics) {
             statistics = _statistics;
             selectedStat = 0;
+            DrawStatistics();
         }
 
         public UI() {

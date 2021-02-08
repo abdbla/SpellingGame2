@@ -17,7 +17,7 @@ namespace SpellingGame2
         public void SetOptions(string id, List<(string, ConsoleColor, ConsoleColor)> options);
         public void SetStatus(List<string> vars);
         public void SetStatus(List<(string, ConsoleColor, ConsoleColor)> vars);
-        public void GetInput();
+        public string GetInput();
     }
 
     class InterfaceEventArgs : EventArgs

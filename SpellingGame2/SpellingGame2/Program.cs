@@ -5,17 +5,43 @@ namespace SpellingGame2
 {
     class Program
     {
+        static IUserInterface userInterface = new UI();
+        static Engine engine = new Engine();
+        static Player player = new Player();
+        static Data data = new Data();
         static void Main(string[] args) { //start of game setup
-            IUserInterface userInterface = new UI();
-            Engine engine = new Engine();
-            Player player = new Player();
-            Data data = new Data();
             engine.dayEnd += player.RestoreStats;
+            player.knownRituals.AddRange(new List<SpellRecipeID>() { SpellRecipeID.MinorLuck, SpellRecipeID.NaturalHealing, SpellRecipeID.ReadTheFlesh });
+            player.money += 200;
+            userInterface.OptionSelected += delegate (object sender, InterfaceEventArgs e) { }; // prevents crashes lol
+            TowerMenu(userInterface);
         }
 
-        void TowerMenu() {
+        static void TowerMenu(IUserInterface userInterface) {
+            userInterface.ClearDescription();
+            List<string> options = new List<string>() { "Expeditions", "Research", "Commissions", "Distillery", "Rituals" };
+            List<string> stats = new List<string>() { $"Actions: {player.actions}/4", $"Stamina: {player.stamina}/100", $"£{player.money}.00" };
+            userInterface.SetOptions("towerMenu", options);
+            userInterface.SetStatus(stats);
+            userInterface.WriteIntoDescription("You are in your tower.", true);
             while (true) {
-
+                switch (userInterface.GetInput().ToLower()) {
+                    case "expeditions":
+                        ExpeditionMenu();
+                        break;
+                    case "research":
+                        ResearchMenu();
+                        break;
+                    case "commissions":
+                        CommissionMenu();
+                        break;
+                    case "distillery":
+                        DistillationMenu();
+                        break;
+                    case "rituals":
+                        RitualMenu();
+                        break;
+                }
             }
         }
     }

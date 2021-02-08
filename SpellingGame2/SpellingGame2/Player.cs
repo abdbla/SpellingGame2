@@ -7,13 +7,13 @@ namespace SpellingGame2
 {
     class Player
     {
-        Dictionary<Aspect, int> essentia;
-        Dictionary<Lore, int> lore;
-        List<ObjectID> objects;
-        List<SpellRecipeID> knownRituals;
-        int gilt = 0;
-        int actions = 4;
-        int stamina = 100;
+        public Dictionary<Aspect, int> essentia;
+        public Dictionary<Lore, int> lore;
+        public List<ObjectID> objects;
+        public List<SpellRecipeID> knownRituals;
+        public int money = 0;
+        public int actions = 4;
+        public int stamina = 100;
 
         public Player() {
             essentia = new Dictionary<Aspect, int>();
