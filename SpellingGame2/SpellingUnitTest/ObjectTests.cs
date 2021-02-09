@@ -12,7 +12,7 @@ namespace SpellingUnitTest
         [Test]
         public void SerializationTest() {
             //setup
-            Object obj = new Object(new List<(Aspect, int)>() { (Aspect.Aer, 3), (Aspect.Ordo, 1) }, ObjectID.TestObject);
+            Object obj = new Object(new List<(Aspect, int)>() { (Aspect.Aer, 3), (Aspect.Ordo, 1) }, ObjectID.TestObject, "test");
             Dictionary<ObjectID, Object> objects = new Dictionary<ObjectID, Object>();
             objects.Add(ObjectID.TestObject, obj);
             ObjectXmlHandler.ObjectsSerialize(objects);

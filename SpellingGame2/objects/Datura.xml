@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Object xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <containedEssentia>
+    <ValueTupleOfAspectInt32>
+      <Item1>Terra</Item1>
+      <Item2>2</Item2>
+    </ValueTupleOfAspectInt32>
+    <ValueTupleOfAspectInt32>
+      <Item1>Ignis</Item1>
+      <Item2>3</Item2>
+    </ValueTupleOfAspectInt32>
+  </containedEssentia>
+  <desc>Rage-inducing hallucinogenic. Dangerous in its raw form, useful distilled.</desc>
+  <id>Datura</id>
+</Object>

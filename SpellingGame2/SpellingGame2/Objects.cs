@@ -35,10 +35,12 @@ namespace SpellingGame2
     public struct Object
     {
         public List<(Aspect, int)> containedEssentia;
+        public string desc;
         public ObjectID id;
 
-        public Object(List<(Aspect, int)> _containedEssentia, ObjectID _id) {
+        public Object(List<(Aspect, int)> _containedEssentia, ObjectID _id, string _desc) {
             id = _id;
+            desc = _desc;
             containedEssentia = _containedEssentia;
         }
 
@@ -62,5 +64,10 @@ namespace SpellingGame2
     {
         TestObject,
         Lead,
+        Tin,
+        Silver,
+        Datura,
+        Marijuana,
+        Basil,
     }
 }

@@ -5,7 +5,7 @@ using static SpellingGame2.Engine;
 
 namespace SpellingGame2
 {
-    class Player
+    public class Player
     {
         public Dictionary<Aspect, int> essentia;
         public Dictionary<Lore, int> lore;
