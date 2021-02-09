@@ -115,7 +115,7 @@ namespace SpellingGame2
             writeDescription(description, foreground, background, newLine);
         }
 
-        private void writeDescription(string description, ConsoleColor foreground, ConsoleColor background, int newLine) { 
+        private void writeDescription(string description, ConsoleColor foreground, ConsoleColor background, int newLine) { //TODO: no newline = fucked wrapping
             Console.SetCursorPosition(currentDescPos.Item1, currentDescPos.Item2);
             Console.ForegroundColor = foreground;
             Console.BackgroundColor = background;
