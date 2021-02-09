@@ -23,7 +23,7 @@ namespace SpellingGame2
             List<string> stats = new List<string>() { $"Actions: {player.actions}/4", $"Stamina: {player.stamina}/100", $"£{player.money}.00" };
             userInterface.SetOptions("towerMenu", options);
             userInterface.SetStatus(stats);
-            userInterface.WriteIntoDescription("You are in your tower.", true);
+            userInterface.WriteIntoDescription("You are in your tower.", 2);
             while (true) {
                 switch (userInterface.GetInput().ToLower()) {
                     case "expeditions":

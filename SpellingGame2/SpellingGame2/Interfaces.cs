@@ -10,8 +10,8 @@ namespace SpellingGame2
 
         public void ChangeTitle(string title);
         public void ChangeTitle(string title, ConsoleColor foreground, ConsoleColor background);
-        public void WriteIntoDescription(string description, bool newLine);
-        public void WriteIntoDescription(string description, ConsoleColor foreground, ConsoleColor background, bool newLine);
+        public void WriteIntoDescription(string description, int newLine);
+        public void WriteIntoDescription(string description, ConsoleColor foreground, ConsoleColor background, int newLines);
         public void ClearDescription();
         public void SetOptions(string id, List<string> options);
         public void SetOptions(string id, List<(string, ConsoleColor, ConsoleColor)> options);

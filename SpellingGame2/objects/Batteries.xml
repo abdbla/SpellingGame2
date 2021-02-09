@@ -2,18 +2,18 @@
 <Object xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <containedEssentia>
     <ValueTupleOfAspectInt32>
-      <Item1>Terra</Item1>
-      <Item2>2</Item2>
+      <Item1>Aer</Item1>
+      <Item2>1</Item2>
     </ValueTupleOfAspectInt32>
 	<ValueTupleOfAspectInt32>
-      <Item1>Aqua</Item1>
+      <Item1>Ignis</Item1>
       <Item2>2</Item2>
     </ValueTupleOfAspectInt32>
     <ValueTupleOfAspectInt32>
-      <Item1>Perditio</Item1>
-      <Item2>2</Item2>
+      <Item1>Potentia</Item1>
+      <Item2>1</Item2>
     </ValueTupleOfAspectInt32>
   </containedEssentia>
-  <desc>Euphoria-inducing hallucinogenic, useful for relaxing, not so much for ambitious people. Magically-charged, comparatively, making it useful for distillation.</desc>
-  <id>Marijuana</id>
+  <desc>As a backbone of modern society for some 150 years, even in it's relative youth its garnered some ontological momentum.</desc>
+  <id>Batteries</id>
 </Object>

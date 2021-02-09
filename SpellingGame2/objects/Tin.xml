@@ -5,11 +5,11 @@
       <Item1>Terra</Item1>
       <Item2>3</Item2>
     </ValueTupleOfAspectInt32>
-	<ValueTupleOfAspectInt32>
     <ValueTupleOfAspectInt32>
       <Item1>Aqua</Item1>
       <Item2>2</Item2>
     </ValueTupleOfAspectInt32>
   </containedEssentia>
+  <desc>Tin, associated with the god of thunder and rains. You doubt it's pure enough to get such elemental Essentia as Fulmen, however.</desc>
   <id>Tin</id>
 </Object>

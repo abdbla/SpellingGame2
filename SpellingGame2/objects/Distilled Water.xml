@@ -2,14 +2,10 @@
 <Object xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <containedEssentia>
     <ValueTupleOfAspectInt32>
-      <Item1>Aer</Item1>
-      <Item2>3</Item2>
-    </ValueTupleOfAspectInt32>
-    <ValueTupleOfAspectInt32>
-      <Item1>Ordo</Item1>
-      <Item2>1</Item2>
+      <Item1>Aqua</Item1>
+      <Item2>5</Item2>
     </ValueTupleOfAspectInt32>
   </containedEssentia>
-  <desc>test</desc>
-  <id>TestObject</id>
+  <desc>It's no surprise that elemental water contains a lot of, well, water Essentia.</desc>
+  <id>DistilledWater</id>
 </Object>

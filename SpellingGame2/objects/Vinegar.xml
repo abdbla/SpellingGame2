@@ -2,18 +2,18 @@
 <Object xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <containedEssentia>
     <ValueTupleOfAspectInt32>
-      <Item1>Terra</Item1>
+      <Item1>Aqua</Item1>
       <Item2>2</Item2>
     </ValueTupleOfAspectInt32>
 	<ValueTupleOfAspectInt32>
-      <Item1>Aqua</Item1>
-      <Item2>2</Item2>
+      <Item1>Ordo</Item1>
+      <Item2>1</Item2>
     </ValueTupleOfAspectInt32>
     <ValueTupleOfAspectInt32>
       <Item1>Perditio</Item1>
       <Item2>2</Item2>
     </ValueTupleOfAspectInt32>
   </containedEssentia>
-  <desc>Euphoria-inducing hallucinogenic, useful for relaxing, not so much for ambitious people. Magically-charged, comparatively, making it useful for distillation.</desc>
-  <id>Marijuana</id>
+  <desc>A preservative and an acid, it holds a paradoxical nature. Perhaps through an uncommon resolution it could be heightened?</desc>
+  <id>Vinegar</id>
 </Object>

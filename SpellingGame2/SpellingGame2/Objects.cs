@@ -69,5 +69,8 @@ namespace SpellingGame2
         Datura,
         Marijuana,
         Basil,
+        Vinegar,
+        DistilledWater,
+        Batteries,
     }
 }

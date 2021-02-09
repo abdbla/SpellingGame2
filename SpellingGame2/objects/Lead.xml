@@ -6,5 +6,6 @@
       <Item2>5</Item2>
     </ValueTupleOfAspectInt32>
   </containedEssentia>
+  <desc>As a very basic metal, its weight gives it more than just annoyance to carry. It holds a connection to the earth.</desc>
   <id>Lead</id>
 </Object>

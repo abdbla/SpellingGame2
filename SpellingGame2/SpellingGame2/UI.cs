@@ -107,15 +107,15 @@ namespace SpellingGame2
             DrawOptions();
         }
 
-        void IUserInterface.WriteIntoDescription(string description, bool newLine) {
+        void IUserInterface.WriteIntoDescription(string description, int newLine) {
             writeDescription(description, ConsoleColor.White, ConsoleColor.Black, newLine);
         }
 
-        void IUserInterface.WriteIntoDescription(string description, ConsoleColor foreground, ConsoleColor background, bool newLine) {
+        void IUserInterface.WriteIntoDescription(string description, ConsoleColor foreground, ConsoleColor background, int newLine) {
             writeDescription(description, foreground, background, newLine);
         }
 
-        private void writeDescription(string description, ConsoleColor foreground, ConsoleColor background, bool newLine = true) { 
+        private void writeDescription(string description, ConsoleColor foreground, ConsoleColor background, int newLine) { 
             Console.SetCursorPosition(currentDescPos.Item1, currentDescPos.Item2);
             Console.ForegroundColor = foreground;
             Console.BackgroundColor = background;
@@ -128,12 +128,7 @@ namespace SpellingGame2
                     Console.MoveBufferArea(5, 13 + GetSplit(title, titleWidth - 4).Length, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 12 + GetSplit(title, titleWidth - 4).Length);
                 }
             }
-            if (newLine) {
-                Console.Write("\n");
-                if (Console.CursorTop >= descriptionHeight - 2) {
-                    Console.CursorTop = descriptionHeight - 3;
-                    Console.MoveBufferArea(5, 13 + GetSplit(title, titleWidth - 4).Length, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 12 + GetSplit(title, titleWidth - 4).Length);
-                }
+            for (int i = 0; i < newLine; i++) {
                 Console.Write("\n");
                 if (Console.CursorTop >= descriptionHeight - 2) {
                     Console.CursorTop = descriptionHeight - 3;
@@ -141,7 +136,7 @@ namespace SpellingGame2
                 }
             }
             currentDescPos = (GetSplit(description, Console.BufferWidth - 8)[GetSplit(description, Console.BufferWidth - 8).Length - 1].Length + 1, currentDescPos.Item2 + GetSplit(description, Console.BufferWidth - 8).Length);
-            if (newLine) { currentDescPos.Item2 = Console.CursorTop; currentDescPos.Item1 = 5; }
+            if (newLine > 0) { currentDescPos.Item2 = Console.CursorTop; currentDescPos.Item1 = 5; }
             if (currentDescPos.Item2 >= descriptionHeight - 2) {
                 currentDescPos.Item2 = descriptionHeight - 3;
             }
