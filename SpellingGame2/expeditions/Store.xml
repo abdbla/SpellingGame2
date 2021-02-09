@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Expedition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>Store</id>
+  <description>A downtown store of the more uncommon materials. </description>
+  <failureDesc>default</failureDesc>
+  <successDesc>default</successDesc>
+  <requirements>
+    <actions>0</actions>
+    <money>0</money>
+    <stamina>0</stamina>
+  </requirements>
+  <costs>
+    <actions>0</actions>
+    <money>0</money>
+    <stamina>0</stamina>
+  </costs>
+  <failureCosts>
+    <actions>0</actions>
+    <money>0</money>
+    <stamina>0</stamina>
+  </failureCosts>
+  <rewards />
+</Expedition>

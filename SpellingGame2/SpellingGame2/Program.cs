@@ -19,7 +19,7 @@ namespace SpellingGame2
 
         static void TowerMenu(IUserInterface userInterface) {
             userInterface.ClearDescription();
-            List<string> options = new List<string>() { "Expeditions", "Research", "Commissions", "Distillery", "Rituals" };
+            List<string> options = new List<string>() { "Expeditions", "Research", "Commissions", "Distillery", "Rituals", "You" };
             List<string> stats = new List<string>() { $"Actions: {player.actions}/4", $"Stamina: {player.stamina}/100", $"£{player.money}.00" };
             userInterface.SetOptions("towerMenu", options);
             userInterface.SetStatus(stats);
@@ -41,8 +41,35 @@ namespace SpellingGame2
                     case "rituals":
                         RitualMenu();
                         break;
+                    case "you":
+                        PlayerMenu();
+                        break;
                 }
             }
+        }
+
+        static void ExpeditionMenu() {
+
+        }
+
+        static void ResearchMenu() {
+
+        }
+
+        static void CommissionMenu() {
+
+        }
+
+        static void DistillationMenu() {
+
+        }
+
+        static void RitualMenu() {
+
+        }
+
+        static void PlayerMenu() {
+
         }
     }
 }

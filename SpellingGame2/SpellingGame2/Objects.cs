@@ -61,5 +61,6 @@ namespace SpellingGame2
     public enum ObjectID
     {
         TestObject,
+        Lead,
     }
 }

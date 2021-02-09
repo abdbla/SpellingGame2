@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Expedition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>Garden</id>
+  <description>Your garden. Contains essential herbs for a convoker. Datura. Marijuana. Thyme. Common things.</description>
+  <failureDesc>You're too tired to tend to your garden at the moment.</failureDesc>
+  <successDesc>It seems several of your flowers have flowered. Now only to pluck the useful ones...</successDesc>
+  <requirements>
+    <actions>2</actions>
+    <money>0</money>
+    <stamina>0</stamina>
+  </requirements>
+  <costs>
+    <actions>2</actions>
+    <money>0</money>
+    <stamina>0</stamina>
+  </costs>
+  <failureCosts>
+    <actions>0</actions>
+    <money>0</money>
+    <stamina>0</stamina>
+  </failureCosts>
+  <rewards />
+</Expedition>

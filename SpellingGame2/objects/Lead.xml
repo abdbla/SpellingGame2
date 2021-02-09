@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Object xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <containedEssentia>
+    <ValueTupleOfAspectInt32>
+      <Item1>Terra</Item1>
+      <Item2>5</Item2>
+    </ValueTupleOfAspectInt32>
+  </containedEssentia>
+  <id>Lead</id>
+</Object>
