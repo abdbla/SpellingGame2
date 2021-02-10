@@ -280,7 +280,8 @@ namespace SpellingGame2
             Console.SetCursorPosition(left, top);
         }
 
-        private void DrawTitle() {
+        private void DrawTitle() { //TODO: redraw lines when the title changes length.
+            //ClearArea(5, Console.BufferWidth - titleWidth + 1, titleWidth - 50, GetSplit(title, titleWidth - 4).Length); //TODO: fix this.
             Console.ForegroundColor = titleColor.Item1;
             Console.BackgroundColor = titleColor.Item2;
             for (int i = 0; i < GetSplit(title, titleWidth - 4).Length; i++) {
