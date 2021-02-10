@@ -16,6 +16,7 @@ namespace SpellingGame2
             for (int i = 0; i < 10; i++) {
                 userInterface.WriteIntoDescription("Testing no-newline things, lol. ", 0);
             }
+            Console.ReadKey();
             userInterface.OptionSelected += delegate (object sender, InterfaceEventArgs e) { }; // prevents crashes lol
             TowerMenu(userInterface);
         }
