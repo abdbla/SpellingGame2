@@ -119,6 +119,16 @@ namespace SpellingGame2
             Console.SetCursorPosition(currentDescPos.Item1, currentDescPos.Item2);
             Console.ForegroundColor = foreground;
             Console.BackgroundColor = background;
+            if (currentDescPos.Item1 > 5) {
+                var item = GetSplit(description, Console.BufferWidth - 3 - currentDescPos.Item1)[0];
+                WriteSlowly(item, DESC_SPEED);
+                Console.SetCursorPosition(currentDescPos.Item1, currentDescPos.Item2);
+                if (Console.CursorTop >= descriptionHeight - 2) {
+                    Console.CursorTop = descriptionHeight - 3;
+                    Console.MoveBufferArea(5, 13 + GetSplit(title, titleWidth - 4).Length, Console.BufferWidth - 8, (descriptionHeight - 3) - 13 + GetSplit(title, titleWidth - 4).Length, 5, 12 + GetSplit(title, titleWidth - 4).Length);
+                }
+                description = description.Substring(item.Length);
+            }
             foreach (var item in GetSplit(description, Console.BufferWidth - 8)) {
                 WriteSlowly(item, DESC_SPEED);
                 currentDescPos.Item2++;
