@@ -116,6 +116,7 @@ namespace SpellingGame2
         }
 
         private void writeDescription(string description, ConsoleColor foreground, ConsoleColor background, int newLine) { //TODO: no newline = fucked wrapping
+            Console.SetCursorPosition(currentDescPos.Item1, currentDescPos.Item2);
             Console.ForegroundColor = foreground;
             Console.BackgroundColor = background;
             // if (currentDescPos.Item1 > 5) {
@@ -135,18 +136,21 @@ namespace SpellingGame2
             //     }
             //     description = description.Substring(item.Length);
             // }
-            if (Console.BufferWidth - currentDescPos.Item1 - 4 - description.Length == 0) {
+            if (Console.BufferWidth - currentDescPos.Item1 - 5 - description.Length == 0) {
                 WriteSlowly(description, DESC_SPEED);
-                currentDescPos.Item1++;
-            } else if (Console.BufferWidth - currentDescPos.Item1 - 4 - description.Length > 0) {
+                currentDescPos.Item2++; ;
+            } else if (Console.BufferWidth - currentDescPos.Item1 - 5 - description.Length > 0) {
                 WriteSlowly(description, DESC_SPEED);
             } else { 
-                var item = GetSplit(description, Console.BufferWidth - currentDescPos.Item1 - 4)[0];
+                var item = GetSplit(description, Console.BufferWidth - currentDescPos.Item1 - 5)[0];
                 WriteSlowly(item, DESC_SPEED);
-                currentDescPos.Item1++;
+                currentDescPos.Item2++;
+                if (GetSplit(description, Console.BufferWidth - currentDescPos.Item1 - 5).Length == 0) throw new Exception("Error in UI");
+                currentDescPos.Item1 = 5;
+                description = description.Substring(item.Length);
             }
 
-            for (int i = 0; i < GetSplit(description, Console.BufferWidth - 8).Length; i++) {
+            for (int i = 0; i < GetSplit(description, Console.BufferWidth - 10).Length; i++) {
                 if (Console.BufferWidth - currentDescPos.Item1 - 5 == 0) { currentDescPos.Item2++; currentDescPos.Item1 = 5; }
                 Console.SetCursorPosition(currentDescPos.Item1, currentDescPos.Item2);
                 var item = GetSplit(description, Console.BufferWidth - 5 - currentDescPos.Item1)[i];
