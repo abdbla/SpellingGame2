@@ -23,5 +23,17 @@ namespace SpellingUnitTest
             //assert
             Assert.AreEqual(deserializedObjects[ObjectID.TestObject], obj);
         }
+
+        [Test]
+        public void ExtensionTest() {
+            //setup
+            ObjectID test = ObjectID.TestObject;
+
+            //test
+            string test2 = test.ToString();
+
+            //assert
+            Assert.AreEqual(test, test2.ToObject());
+        }
     }
 }

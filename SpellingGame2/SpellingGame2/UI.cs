@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SpellingGame2
 {
@@ -10,6 +11,7 @@ namespace SpellingGame2
         int selectedOption = 0;
         int selectedStat = 0;
         string currentChoice = "";
+        object descLockObject = new object();
 
         int titleWidth = (Console.LargestWindowWidth * 3) / 5;
         int statusWidth = 80;
@@ -19,11 +21,10 @@ namespace SpellingGame2
 
         const int DESC_SPEED = 1;
 
-        string title = "Default";
+        string title = "";
         (ConsoleColor, ConsoleColor) titleColor = (ConsoleColor.White, ConsoleColor.Black);
-        string description = "lorem ipsum";
-        List<(string, ConsoleColor, ConsoleColor)> options = new List<(string, ConsoleColor, ConsoleColor)>() { ("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", ConsoleColor.White, ConsoleColor.Black), ("ipsum", ConsoleColor.White, ConsoleColor.Black), ("dolor", ConsoleColor.White, ConsoleColor.Black), ("sit", ConsoleColor.White, ConsoleColor.Black), ("amet", ConsoleColor.White, ConsoleColor.Black) }; 
-        List<(string, ConsoleColor, ConsoleColor)> statistics = new List<(string, ConsoleColor, ConsoleColor)>() { ("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", ConsoleColor.White, ConsoleColor.Black), ("ipsum", ConsoleColor.White, ConsoleColor.Black), ("dolor", ConsoleColor.White, ConsoleColor.Black), ("sit", ConsoleColor.White, ConsoleColor.Black), ("amet", ConsoleColor.White, ConsoleColor.Black) };
+        List<(string, ConsoleColor, ConsoleColor)> options = new List<(string, ConsoleColor, ConsoleColor)>() { }; 
+        List<(string, ConsoleColor, ConsoleColor)> statistics = new List<(string, ConsoleColor, ConsoleColor)>() { };
 
         event EventHandler<InterfaceEventArgs> optionSelected;
 
@@ -70,6 +71,7 @@ namespace SpellingGame2
                         break;
                 }
                 DrawOptions();
+                DrawStatistics();
             }
         }
 
@@ -124,7 +126,7 @@ namespace SpellingGame2
                 currentDescPos.Item2++; ;
             } else if (Console.BufferWidth - currentDescPos.Item1 - 5 - description.Length > 0) {
                 WriteSlowly(description, DESC_SPEED);
-            } else { 
+            } else {
                 var item = GetSplit(description, Console.BufferWidth - currentDescPos.Item1 - 5)[0];
                 WriteSlowly(item, DESC_SPEED);
                 currentDescPos.Item2++;
@@ -372,11 +374,18 @@ namespace SpellingGame2
             }
         }
 
-        private void WriteSlowly(string text, int delay) {
-            for (int i = 0; i < text.Length; i++) {
-                Console.Write(text[i]);
-                Thread.Sleep(TimeSpan.FromMilliseconds(delay));
-            }
+        private void WriteSlowly(string text, int delay) { //Writing slowly is certainly cool, but for some reason it freezes for seconds at the end. Until then it'll just write the text directly with no delay or scroll.
+                                                           //    int i = 0;
+                                                           //    var autoEvent = new AutoResetEvent(false);
+                                                           //    TimerCallback callback = delegate (object state) {
+                                                           //        Console.Write(text[i]);
+                                                           //        i++;
+                                                           //        if (i >= text.Length) { autoEvent.Set(); };
+                                                           //    };
+                                                           //    Timer timer = new Timer(callback, null, 0, delay);
+                                                           //    autoEvent.WaitOne();
+                                                           //    timer.Dispose();
+            Console.Write(text);
         }
     }
 }

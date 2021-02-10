@@ -73,4 +73,34 @@ namespace SpellingGame2
         DistilledWater,
         Batteries,
     }
+
+    static public class ObjectExtension
+    {
+        static public ObjectID ToObject(this string s) {
+            switch (s.ToLower()) {
+                default:
+                    throw new Exception("Failed to parse a string into an Object");
+                case "lead":
+                    return ObjectID.Lead;
+                case "tin":
+                    return ObjectID.Tin;
+                case "silver":
+                    return ObjectID.Silver;
+                case "datura":
+                    return ObjectID.Datura;
+                case "marijuana":
+                    return ObjectID.Marijuana;
+                case "basil":
+                    return ObjectID.Basil;
+                case "vinegar":
+                    return ObjectID.Vinegar;
+                case "distilledwater":
+                    return ObjectID.DistilledWater;
+                case "batteries":
+                    return ObjectID.Batteries;
+                case "testobject":
+                    return ObjectID.TestObject;
+            }
+        }
+    }
 }
