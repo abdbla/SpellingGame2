@@ -71,6 +71,32 @@ namespace SpellingGame2
                     return rewards;
                 });
 
+            expeditions.Add(ExpeditionID.AbandonedMine,
+                delegate (IUserInterface ui, Player p) {
+                    if (p.actions < 4) { ui.WriteIntoDescription("It's too late in the day to head to the mines. By the time you'd come back, it would already be past midnight.", 2); return new List<ObjectID>() { }; }
+                    p.actions -= 3;
+
+                    ui.WriteIntoDescription("The trip to the abandoned mines is quite a long one, so you start the trek early in the morning. It's almost noon by the time you arrive, greeted by the yawning entrance, darkness obscuring anything beyond the first ten or so metres from view.", 2);
+                    List<ObjectID> rewards = new List<ObjectID>();
+                    for (int i = 0; i < Engine.rng.Next(0, 5); i++) {
+                        ui.WriteIntoDescription("You find a pile of lead by the wayside, which you pick up and bring with you.", ConsoleColor.Green, ConsoleColor.Black, 1);
+                        rewards.Add(ObjectID.Lead);
+                    }
+                    ui.WriteIntoDescription("", 1);
+                    if (Engine.rng.NextDouble() < 0.7) {
+                        ui.WriteIntoDescription("While continuing through the tunnels, you spot the shine of metals purer than lead. Envigorated by hope you bring it with you, though", 0);
+                        ui.WriteIntoDescription(" further inspection reveals it only to be tin.", ConsoleColor.Green, ConsoleColor.Black, 2);
+                        rewards.Add(ObjectID.Tin);
+                    }
+                    if (Engine.rng.NextDouble() < 0.3) {
+                        ui.WriteIntoDescription("Further on, however, you do find something of more interest. A spot of metal shining reveals itself to be elementally pure silver.", 0);
+                        ui.WriteIntoDescription(" A rare and valuable find.", ConsoleColor.Green, ConsoleColor.Black, 2);
+                        rewards.Add(ObjectID.Silver);
+                    }
+
+                    return rewards;
+                });
+
             return expeditions;
         }
     }

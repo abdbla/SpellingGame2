@@ -13,11 +13,8 @@ namespace SpellingGame2
             engine.dayEnd += player.RestoreStats;
             player.knownRituals.AddRange(new List<SpellRecipeID>() { SpellRecipeID.MinorLuck, SpellRecipeID.NaturalHealing, SpellRecipeID.ReadTheFlesh });
             player.money += 200;
-            for (int i = 0; i < 10; i++) {
-                userInterface.WriteIntoDescription("Testing no-newline things, lol. ", 0);
-            }
             Console.ReadKey();
-            userInterface.OptionSelected += delegate (object sender, InterfaceEventArgs e) { }; // prevents crashes lol
+            userInterface.OptionSelected += delegate (object sender, InterfaceEventArgs e) { };
             TowerMenu(userInterface);
         }
 
