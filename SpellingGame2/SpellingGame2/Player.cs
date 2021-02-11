@@ -21,6 +21,7 @@ namespace SpellingGame2
             lore = new Dictionary<Lore, int>();
             objects = new List<ObjectID>();
             knownRituals = new List<SpellRecipeID>();
+            commissions = new List<CommissionID>();
         }
 
         public void RestoreStats(object sender, DayEndEventArgs e) {
@@ -31,15 +32,12 @@ namespace SpellingGame2
         public void GenerateCommissions() {
             commissions.Clear();
             for (int i = 0; i < rng.Next(1, 4); i++) {
-                commissions.Add((CommissionID)rng.Next(0, CommissionExtensions.Count()));
+                commissions.Add((CommissionID)rng.Next(0, CommissionExtensions.Count() - 1));
             }
         }
 
         public void GenerateCommissions(object sender, DayEndEventArgs e) {
-            commissions.Clear();
-            for (int i = 0; i < rng.Next(1, 4); i++) {
-                commissions.Add((CommissionID)rng.Next(0, CommissionExtensions.Count()));
-            }
+            GenerateCommissions();
         }
     }
 }

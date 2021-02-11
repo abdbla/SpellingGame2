@@ -23,7 +23,7 @@ namespace SpellingGame2
 
         string title = "";
         (ConsoleColor, ConsoleColor) titleColor = (ConsoleColor.White, ConsoleColor.Black);
-        List<(string, ConsoleColor, ConsoleColor)> options = new List<(string, ConsoleColor, ConsoleColor)>() { }; 
+        List<(string, ConsoleColor, ConsoleColor)> options = new List<(string, ConsoleColor, ConsoleColor)>() { };
         List<(string, ConsoleColor, ConsoleColor)> statistics = new List<(string, ConsoleColor, ConsoleColor)>() { };
 
         event EventHandler<InterfaceEventArgs> optionSelected;
@@ -67,7 +67,7 @@ namespace SpellingGame2
                     case ConsoleKey.Enter:
                         optionSelected(this, new InterfaceEventArgs(currentChoice, options[selectedOption].Item1));
                         return options[selectedOption].Item1;
-                    default: 
+                    default:
                         break;
                 }
                 DrawOptions();
@@ -76,6 +76,8 @@ namespace SpellingGame2
         }
 
         void UpdateUI() {
+            Console.ResetColor();
+            Console.Clear();
             DrawLines();
             DrawOptions();
             DrawStatistics();
@@ -83,16 +85,24 @@ namespace SpellingGame2
         }
 
         void IUserInterface.ChangeTitle(string _title) { //Note to self, needs to move description if enlargened title.
-            title = _title;
-            if (GetSplit(title, titleWidth - 4).Length > 1) UpdateUI();
-            else DrawTitle();
+            if (GetSplit(title, titleWidth - 4).Length - GetSplit(_title, titleWidth - 4).Length != 0) {
+                title = _title;
+                UpdateUI();
+            } else {
+                title = _title;
+                DrawTitle();
+            }
         }
 
         void IUserInterface.ChangeTitle(string _title, ConsoleColor foreground, ConsoleColor background) {
-            title = _title;
-            titleColor = (foreground, background);
-            if (GetSplit(title, titleWidth - 4).Length > 1) UpdateUI();
-            else DrawTitle();
+            if (GetSplit(title, titleWidth - 4).Length - GetSplit(_title, titleWidth - 4).Length != 0) {
+                titleColor = (foreground, background);
+                title = _title;
+                UpdateUI();
+            } else {
+                title = _title;
+                DrawTitle();
+            }
         }
 
         void IUserInterface.ClearDescription() {
@@ -204,6 +214,7 @@ namespace SpellingGame2
 
         private void DrawLines() {
             Console.ResetColor();
+            Console.Clear();
             Console.SetCursorPosition(0, descriptionHeight);
             WriteChars('-', Console.BufferWidth);
             Console.SetCursorPosition(((Console.BufferWidth - titleWidth) / 2) - 1, 3);
@@ -290,7 +301,7 @@ namespace SpellingGame2
         }
 
         private void DrawTitle() { //TODO: redraw lines when the title changes length.
-            //ClearArea(5, Console.BufferWidth - titleWidth + 1, titleWidth - 50, GetSplit(title, titleWidth - 4).Length); //TODO: fix this.
+            ClearArea(5, (Console.BufferWidth - titleWidth) / 2, titleWidth - 4, GetSplit(title, titleWidth - 4).Length);
             Console.ForegroundColor = titleColor.Item1;
             Console.BackgroundColor = titleColor.Item2;
             for (int i = 0; i < GetSplit(title, titleWidth - 4).Length; i++) {

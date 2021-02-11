@@ -64,7 +64,36 @@ namespace SpellingGame2
         }
 
         static void ExpeditionMenu() {
-
+            userInterface.ChangeTitle("The Planning Room");
+            List<string> options = new List<string>();
+            foreach (var item in Expeditions.GetExpeditions()) {
+                options.Add(item.Key.ToString());
+            }
+            options.Add("Leave");
+            userInterface.SetOptions("expeditions", options);
+            userInterface.SetStatus(new List<string>() { });
+            userInterface.WriteIntoDescription("The planning room greets you, notes detailing locations where you believe you could obtain magically significant materials.", 2);
+            while (true) {
+                switch (userInterface.GetInput().ToLower()) {
+                    case "store":
+                        foreach (var item in Expeditions.GetExpeditions()[ExpeditionID.Store](userInterface, player)) {
+                            player.objects.Add(item);
+                        }
+                        break;
+                    case "garden":
+                        foreach (var item in Expeditions.GetExpeditions()[ExpeditionID.Garden](userInterface, player)) {
+                            player.objects.Add(item);
+                        }
+                        break;
+                    case "abandonedmine":
+                        foreach (var item in Expeditions.GetExpeditions()[ExpeditionID.AbandonedMine](userInterface, player)) {
+                            player.objects.Add(item);
+                        }
+                        break;
+                    default:
+                        return;
+                }
+            }
         }
 
         static void ResearchMenu() {
@@ -88,20 +117,65 @@ namespace SpellingGame2
                 }
                 switch (userInterface.GetInput().ToLower()) {
                     case "accept":
+                        bool fulfilledRequirements = true;
                         switch (data.commissions[player.commissions[0]].type) {
                             case CommissionType.Essentia:
                                 foreach (var item in data.commissions[player.commissions[0]].requiredEssentia) {
                                     if (!player.essentia.TryGetValue(item.Item1, out _) || player.essentia[item.Item1] < item.Item2) {
-
+                                        fulfilledRequirements = false;
                                     }
+                                }
+                                if (fulfilledRequirements) {
+                                    userInterface.WriteIntoDescription("Ah, thank you.", 2);
+                                    foreach (var item in data.commissions[player.commissions[0]].requiredEssentia) {
+                                        player.essentia[item.Item1] -= item.Item2;
+                                        userInterface.WriteIntoDescription("You have lost " + item.Item2 + " " + item.Item1, ConsoleColor.Red, ConsoleColor.Black, 1);
+                                    }
+                                    userInterface.WriteIntoDescription($"You have gained {data.commissions[player.commissions[0]].moneyReward:C}", ConsoleColor.Green, ConsoleColor.Black, 1);
+                                    foreach (var item in data.commissions[player.commissions[0]].objectsReward) {
+                                        player.objects.Add(item);
+                                        userInterface.WriteIntoDescription($"You have gained {item}", ConsoleColor.Green, ConsoleColor.Black, 1);
+                                    }
+                                    player.commissions.RemoveAt(0);
+                                } else {
+                                    userInterface.WriteIntoDescription("You don't have the Essentia to fulfill this request.", 2);
                                 }
                                 break;
                             case CommissionType.Ritual:
+                                foreach (var item in data.recipes[data.commissions[player.commissions[0]].requiredRitual].aspects) {
+                                    if (!player.essentia.TryGetValue(item.Item1, out _) || player.essentia[item.Item1] < item.Item2) {
+                                        fulfilledRequirements = false;
+                                    }
+                                }
+                                if (!player.knownRituals.Contains(data.commissions[player.commissions[0]].requiredRitual)) fulfilledRequirements = false;
+                                if (fulfilledRequirements) {
+                                    userInterface.WriteIntoDescription("Ah, thank you.", 2);
+                                    foreach (var item in data.recipes[data.commissions[player.commissions[0]].requiredRitual].aspects) {
+                                        player.essentia[item.Item1] -= item.Item2;
+                                        userInterface.WriteIntoDescription("You have lost " + item.Item2 + " " + item.Item1, ConsoleColor.Red, ConsoleColor.Black, 1);
+                                    }
+                                    userInterface.WriteIntoDescription($"You have gained {data.commissions[player.commissions[0]].moneyReward:C}", ConsoleColor.Green, ConsoleColor.Black, 1);
+                                    foreach (var item in data.commissions[player.commissions[0]].objectsReward) {
+                                        player.objects.Add(item);
+                                        userInterface.WriteIntoDescription($"You have gained {item}", ConsoleColor.Green, ConsoleColor.Black, 1);
+                                    }
+                                    player.commissions.RemoveAt(0);
+                                } else {
+                                    if (!player.knownRituals.Contains(data.commissions[player.commissions[0]].requiredRitual)) {
+                                        userInterface.WriteIntoDescription("You don't know any ritual that fulfills this request.", 2);
+                                    } else {
+                                        userInterface.WriteIntoDescription("You don't have the Essentia to fulfill this request.", 2);
+                                    }
+                                }
                                 break;
                             case CommissionType.Treatise:
                                 break;
                         }
                         break;
+                    case "decline":
+                        break;
+                    case "go back":
+                        return;
                 }
             }
         }

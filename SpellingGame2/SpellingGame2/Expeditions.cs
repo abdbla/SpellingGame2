@@ -58,7 +58,7 @@ namespace SpellingGame2
                     rewards.Add(ObjectID.DistilledWater);
                     ui.WriteIntoDescription(" Continuing on to the less obvious ingredients...", 0);
                     if (Engine.rng.NextDouble() < 0.7) {
-                        ui.WriteIntoDescription(" You find some bottles of high-concentration vinegar. You take them,", 0);
+                        ui.WriteIntoDescription(" You find some bottles of high-concentration vinegar. You take them, an ingredient most don't consider useful, though definitely magically charged.", 0);
                         rewards.Add(ObjectID.Vinegar);
                     } else {
                         ui.WriteIntoDescription(" You sadly find the shelves deserted of anything useful. Maybe next time.", 0);
@@ -68,6 +68,7 @@ namespace SpellingGame2
                         ui.WriteIntoDescription("A pair of double-D batteries, not often stocked here. Unusually potent in rituals.", ConsoleColor.Green, ConsoleColor.Black, 0);
                         rewards.Add(ObjectID.Batteries);
                     }
+                    ui.WriteIntoDescription("", 2);
                     return rewards;
                 });
 
