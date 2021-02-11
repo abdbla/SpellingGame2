@@ -13,5 +13,7 @@
   </requiredEssentia>
   <type>Essentia</type>
   <id>Essentia2</id>
+  <moneyReward>20</moneyReward>
+  <objectsReward />
   <desc>I'm attempting some transmutations as of late... I'll need two phials of Perditio and Ordo each. I'll pay £20 for the whole deal.</desc>
 </Commission>

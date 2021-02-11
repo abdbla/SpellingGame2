@@ -75,15 +75,24 @@ namespace SpellingGame2
             }
         }
 
+        void UpdateUI() {
+            DrawLines();
+            DrawOptions();
+            DrawStatistics();
+            DrawTitle();
+        }
+
         void IUserInterface.ChangeTitle(string _title) { //Note to self, needs to move description if enlargened title.
             title = _title;
-            DrawTitle();
+            if (GetSplit(title, titleWidth - 4).Length > 1) UpdateUI();
+            else DrawTitle();
         }
 
         void IUserInterface.ChangeTitle(string _title, ConsoleColor foreground, ConsoleColor background) {
             title = _title;
             titleColor = (foreground, background);
-            DrawTitle();
+            if (GetSplit(title, titleWidth - 4).Length > 1) UpdateUI();
+            else DrawTitle();
         }
 
         void IUserInterface.ClearDescription() {

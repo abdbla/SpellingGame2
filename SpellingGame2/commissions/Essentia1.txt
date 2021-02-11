@@ -9,5 +9,7 @@
   </requiredEssentia>
   <type>Essentia</type>
   <id>Essentia1</id>
+  <moneyReward>15</moneyReward>
+  <objectsReward />
   <desc>Hey, I've been looking a jar of Aer. I'm willing to pay £15 for 5 phials of Aer, though that's all I can offer at the moment. Sorry.</desc>
 </Commission>

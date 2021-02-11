@@ -12,7 +12,7 @@ namespace SpellingUnitTest
         [Test]
         public void SerializationTest() {
             //setup
-            Commission commission = new Commission(SpellRecipeID.TestRecipe, new List<(Aspect, int)>() { (Aspect.Aer, 5) }, null, CommissionType.Essentia, "", CommissionID.TestCommission);
+            Commission commission = new Commission(SpellRecipeID.TestRecipe, new List<(Aspect, int)>() { (Aspect.Aer, 5) }, null, CommissionType.Essentia, "", CommissionID.TestCommission, 10, new List<ObjectID>() { ObjectID.Basil });
             Dictionary<CommissionID, Commission> commissionects = new Dictionary<CommissionID, Commission>();
             commissionects.Add(CommissionID.TestCommission, commission);
             CommissionXmlHandler.CommissionsSerialize(commissionects);

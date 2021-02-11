@@ -9,5 +9,9 @@
   </requiredEssentia>
   <type>Essentia</type>
   <id>TestCommission</id>
+  <moneyReward>10</moneyReward>
+  <objectsReward>
+    <ObjectID>Basil</ObjectID>
+  </objectsReward>
   <desc />
 </Commission>

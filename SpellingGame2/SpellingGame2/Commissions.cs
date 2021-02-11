@@ -50,16 +50,20 @@ namespace SpellingGame2
         public List<(Lore, int)> requiredLore;
         public CommissionType type;
         public CommissionID id;
+        public int moneyReward;
+        public List<ObjectID> objectsReward;
 
         public string desc;
 
-        public Commission(SpellRecipeID _requiredRitual, List<(Aspect, int)> _requiredEssentia, List<(Lore, int)> _requiredLore, CommissionType _type, string _desc, CommissionID _id) {
+        public Commission(SpellRecipeID _requiredRitual, List<(Aspect, int)> _requiredEssentia, List<(Lore, int)> _requiredLore, CommissionType _type, string _desc, CommissionID _id, int _money, List<ObjectID> _objects) {
             requiredRitual = _requiredRitual;
             requiredEssentia = _requiredEssentia;
             requiredLore = _requiredLore;
             type = _type;
             desc = _desc;
             id = _id;
+            moneyReward = _money;
+            objectsReward = _objects;
         }
         public override bool Equals(object obj) {
             if (obj.GetType() == typeof(Commission)) {
@@ -82,5 +86,12 @@ namespace SpellingGame2
         Ritual,
         Treatise,
         Essentia
+    }
+
+    static public class CommissionExtensions
+    {
+        public static int Count() {
+            return 7;
+        }
     }
 }

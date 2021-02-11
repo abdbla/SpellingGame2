@@ -3,5 +3,7 @@
   <requiredRitual>NaturalHealing</requiredRitual>
   <type>Ritual</type>
   <id>Ritual3</id>
+  <moneyReward>16</moneyReward>
+  <objectsReward />
   <desc>Och, I got a nasty wound on my foot the other morning. Stepped on my athame, which had dropped from my night stand. Rookie mistake, I know, but can you fix it?</desc>
 </Commission>

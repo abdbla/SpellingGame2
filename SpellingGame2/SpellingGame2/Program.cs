@@ -14,6 +14,8 @@ namespace SpellingGame2
             player.knownRituals.AddRange(new List<SpellRecipeID>() { SpellRecipeID.MinorLuck, SpellRecipeID.NaturalHealing, SpellRecipeID.ReadTheFlesh });
             player.money += 200;
             userInterface.OptionSelected += delegate (object sender, InterfaceEventArgs e) { };
+            engine.dayEnd += player.GenerateCommissions;
+            player.GenerateCommissions();
             player.objects.Add(ObjectID.Basil);
             player.objects.Add(ObjectID.Basil);
             player.objects.Add(ObjectID.Basil);
@@ -70,7 +72,38 @@ namespace SpellingGame2
         }
 
         static void CommissionMenu() {
+            userInterface.ChangeTitle("The Bookstore Counter");
+            userInterface.SetOptions("commission", new List<string>() { "Accept", "Decline", "Go Back" });
+            List<string> statuses = new List<string>();
+            foreach (var item in player.essentia) {
+                statuses.Add(item.Key + ": " + item.Value);
+            }
+            userInterface.SetStatus(statuses);
+            while (true) {
+                if (player.commissions.Count == 0) {
+                    userInterface.WriteIntoDescription("There are no more commissions, today.", 2);
+                } else {
+                    userInterface.WriteIntoDescription("A man walks up to the counter.", 1);
+                    userInterface.WriteIntoDescription(data.commissions[player.commissions[0]].desc, ConsoleColor.Blue, ConsoleColor.Black, 2);
+                }
+                switch (userInterface.GetInput().ToLower()) {
+                    case "accept":
+                        switch (data.commissions[player.commissions[0]].type) {
+                            case CommissionType.Essentia:
+                                foreach (var item in data.commissions[player.commissions[0]].requiredEssentia) {
+                                    if (!player.essentia.TryGetValue(item.Item1, out _) || player.essentia[item.Item1] < item.Item2) {
 
+                                    }
+                                }
+                                break;
+                            case CommissionType.Ritual:
+                                break;
+                            case CommissionType.Treatise:
+                                break;
+                        }
+                        break;
+                }
+            }
         }
 
         static void DistillationMenu() {

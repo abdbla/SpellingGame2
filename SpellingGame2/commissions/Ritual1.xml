@@ -3,5 +3,7 @@
   <requiredRitual>ReadTheFlesh</requiredRitual>
   <type>Ritual</type>
   <id>Ritual1</id>
+  <moneyReward>12</moneyReward>
+  <objectsReward />
   <desc>I've come down with a sickness recently, no clue what it is. Could you find out what it is?</desc>
 </Commission>

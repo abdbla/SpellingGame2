@@ -9,5 +9,7 @@
   </requiredEssentia>
   <type>Essentia</type>
   <id>Essentia3</id>
+  <moneyReward>10</moneyReward>
+  <objectsReward />
   <desc>I just need some elemental earth for an amateur alchemy project... Would you take £10 for 5 phials?</desc>
 </Commission>
