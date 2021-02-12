@@ -12,6 +12,7 @@ namespace SpellingGame2
         public List<ObjectID> objects;
         public List<SpellRecipeID> knownRituals;
         public List<CommissionID> commissions;
+        public Dictionary<ObjectID, bool> researchedObjects;
         public int money = 0;
         public int actions = 4;
         public int stamina = 100;
@@ -20,6 +21,10 @@ namespace SpellingGame2
             essentia = new Dictionary<Aspect, int>();
             lore = new Dictionary<Lore, int>();
             objects = new List<ObjectID>();
+            researchedObjects = new Dictionary<ObjectID, bool>();
+            foreach (var item in Enum.GetValues(ObjectID.TestObject.GetType())) {
+                researchedObjects.Add((ObjectID)item, false);
+            }
             knownRituals = new List<SpellRecipeID>();
             commissions = new List<CommissionID>();
         }
