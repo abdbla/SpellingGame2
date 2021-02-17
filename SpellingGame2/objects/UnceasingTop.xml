@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Object xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <containedEssentia>
+    <ValueTupleOfAspectInt32>
+      <Item1>Alienus</Item1>
+      <Item2>1</Item2>
+    </ValueTupleOfAspectInt32>
+	<ValueTupleOfAspectInt32>
+      <Item1>Ordo</Item1>
+      <Item2>1</Item2>
+    </ValueTupleOfAspectInt32>
+	<ValueTupleOfAspectInt32>
+	  <Item1>Potentia</Item1>
+	  <Item2>5</Item2>
+    </ValueTupleOfAspectInt32>
+  </containedEssentia>
+  <desc>A small spinning top. Never stops spinning. Never.</desc>
+  <id>UnceasingTop</id>
+</Object>

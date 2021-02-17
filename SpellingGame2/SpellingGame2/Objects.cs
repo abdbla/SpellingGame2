@@ -72,6 +72,7 @@ namespace SpellingGame2
         Vinegar,
         DistilledWater,
         Batteries,
+        UnceasingTop,
     }
 
     static public class ObjectExtension
@@ -100,6 +101,8 @@ namespace SpellingGame2
                     return ObjectID.Batteries;
                 case "testobject":
                     return ObjectID.TestObject;
+                case "unceasingtop":
+                    return ObjectID.UnceasingTop;
             }
         }
     }

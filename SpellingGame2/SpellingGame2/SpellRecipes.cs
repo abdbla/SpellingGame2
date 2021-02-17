@@ -108,7 +108,11 @@ namespace SpellingGame2
         Mors,
         Anima,
         Bestia,
-        Praecantatio
+        Praecantatio,
+        Herba,
+        Alienus,
+        Permutatio,
+        Vis,
     }
 
     [Serializable]
@@ -184,6 +188,10 @@ namespace SpellingGame2
                 case Aspect.Anima:
                 case Aspect.Bestia:
                 case Aspect.Praecantatio:
+                case Aspect.Alienus:
+                case Aspect.Permutatio:
+                case Aspect.Herba:
+                case Aspect.Vis:
                     return Rarity.Complex;
             }
 
