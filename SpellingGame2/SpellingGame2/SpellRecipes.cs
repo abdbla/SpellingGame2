@@ -66,6 +66,7 @@ namespace SpellingGame2
     {
         MinorLuck,
         ReadTheFlesh,
+        SupernalEyes,
         NaturalHealing,
         TestRecipe
     }

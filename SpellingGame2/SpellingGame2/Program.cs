@@ -18,6 +18,7 @@ namespace SpellingGame2
             userInterface.OptionSelected += delegate (object sender, InterfaceEventArgs e) { };
             engine.dayEnd += player.GenerateCommissions;
             player.GenerateCommissions();
+            player.essentia.Add(Aspect.Praecantatio, 15);
             player.objects.Add(ObjectID.Basil);
             player.objects.Add(ObjectID.Basil);
             player.objects.Add(ObjectID.Basil);
@@ -76,24 +77,12 @@ namespace SpellingGame2
             userInterface.SetStatus(new List<string>() { });
             userInterface.WriteIntoDescription("The planning room greets you, notes detailing locations where you believe you could obtain magically significant materials.", 2);
             while (true) {
-                switch (userInterface.GetInput().ToLower()) {
-                    case "store":
-                        foreach (var item in Expeditions.GetExpeditions()[ExpeditionID.Store](userInterface, player)) {
-                            player.objects.Add(item);
-                        }
-                        break;
-                    case "garden":
-                        foreach (var item in Expeditions.GetExpeditions()[ExpeditionID.Garden](userInterface, player)) {
-                            player.objects.Add(item);
-                        }
-                        break;
-                    case "abandonedmine":
-                        foreach (var item in Expeditions.GetExpeditions()[ExpeditionID.AbandonedMine](userInterface, player)) {
-                            player.objects.Add(item);
-                        }
-                        break;
-                    default:
-                        return;
+                try {
+                    foreach (var item in Expeditions.GetExpeditions()[Enum.Parse<ExpeditionID>(userInterface.GetInput())](userInterface, player)) {
+                        player.objects.Add(item);
+                    }
+                } catch {
+                    return;
                 }
             }
         }

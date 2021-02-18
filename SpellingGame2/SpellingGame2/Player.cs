@@ -13,6 +13,7 @@ namespace SpellingGame2
         public List<SpellRecipeID> knownRituals;
         public List<CommissionID> commissions;
         public Dictionary<ObjectID, bool> researchedObjects;
+        public EventHandler useAction;
         public int money = 0;
         public int actions = 4;
         public int stamina = 100;
@@ -27,6 +28,7 @@ namespace SpellingGame2
             }
             knownRituals = new List<SpellRecipeID>();
             commissions = new List<CommissionID>();
+            useAction += delegate (object sender, EventArgs args) { actions--; };
         }
 
         public void RestoreStats(object sender, DayEndEventArgs e) {
