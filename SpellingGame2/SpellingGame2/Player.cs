@@ -55,7 +55,8 @@ namespace SpellingGame2
         ArcaneMind,
         SupernalEyes,
         MinorLuck,
-        ReadTheFlesh
+        ReadTheFlesh,
+        NaturalHealing,
     }
 
     public static class StatusExtensions
@@ -72,6 +73,8 @@ namespace SpellingGame2
                     return "You feel a little lucky.";
                 case StatusID.ReadTheFlesh:
                     return "Living things unveil their conditions to you, like words on paper.";
+                case StatusID.NaturalHealing:
+                    return "Your flesh squirms beneath your skin, hyperactive.";
                 default:
                     return "An error has occurred.";
             }

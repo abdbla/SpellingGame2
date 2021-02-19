@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
+using static SpellingGame2.Engine;
 
 namespace SpellingGame2
 {
@@ -73,12 +74,9 @@ namespace SpellingGame2
         TestRecipe
     }
 
-    public static class SpellRecipeIDExtensions
-    {
-        public static string ToName(this SpellRecipeID id)
-        {
-            switch (id)
-            {
+    public static class SpellRecipeIDExtensions {
+        public static string ToName(this SpellRecipeID id) {
+            switch (id) {
                 case SpellRecipeID.MinorLuck:
                     return "Minor Blessing of Luck";
                 case SpellRecipeID.ReadTheFlesh:
@@ -90,6 +88,22 @@ namespace SpellingGame2
                 default:
                     return "Default Recipe";
             }
+        }
+
+        public static SpellRecipeID ToID(this string str) {
+            switch (str) {
+                case "Minor Blessing of Luck":
+                    return SpellRecipeID.MinorLuck;
+                case "Read the Flesh":
+                    return SpellRecipeID.ReadTheFlesh;
+                case "Supernal Eyes":
+                    return SpellRecipeID.SupernalEyes;
+                case "Natural Healing":
+                    return SpellRecipeID.NaturalHealing;
+                default:
+                    throw new Exception("Not a valid string to convert");
+            }
+
         }
     }
 
@@ -221,12 +235,64 @@ namespace SpellingGame2
     }
     public static class Effects
     {
-        public static Dictionary<SpellRecipeID, Action<IUserInterface, Player>> GetEffects() {
-            Dictionary<SpellRecipeID, Action<IUserInterface, Player>> effects = new Dictionary<SpellRecipeID, Action<IUserInterface, Player>>();
+        public static Dictionary<SpellRecipeID, Action<IUserInterface, Player, Engine>> GetEffects() {
+            Dictionary<SpellRecipeID, Action<IUserInterface, Player, Engine>> effects = new Dictionary<SpellRecipeID, Action<IUserInterface, Player, Engine>>();
 
-            effects.Add(SpellRecipeID.MinorLuck, delegate(IUserInterface ui, Player p) {
+            effects.Add(SpellRecipeID.MinorLuck, delegate (IUserInterface ui, Player p, Engine e) {
+                ui.WriteIntoDescription("You feel the strings that tie you to the world bend, and stretch towards the sky. Somehow, things are better.", 2);
+
                 p.statuses.Add(StatusID.MinorLuck);
-            })
+                EventHandler<DayEndEventArgs> action = null;
+                action = delegate (object sender, DayEndEventArgs args) {
+                    p.statuses.Remove(StatusID.MinorLuck);
+                    e.dayEnd -= action;
+                };
+                e.dayEnd += action;
+            });
+
+            effects.Add(SpellRecipeID.NaturalHealing, delegate (IUserInterface ui, Player p, Engine e) {
+                ui.WriteIntoDescription("Your skin starts to crawl, almost as if it has a life of its own.", 2);
+
+                p.statuses.Add(StatusID.NaturalHealing);
+                EventHandler<DayEndEventArgs> action = null;
+                EventHandler healer = delegate (object sender, EventArgs args) {
+                    p.stamina += 10;
+                };
+                action = delegate (object sender, DayEndEventArgs args) {
+                    p.statuses.Remove(StatusID.NaturalHealing);
+                    e.dayEnd -= action;
+                    p.useAction -= healer;
+                };
+                e.dayEnd += action;
+                p.useAction += healer;
+            });
+
+            effects.Add(SpellRecipeID.ReadTheFlesh, delegate (IUserInterface ui, Player p, Engine e) {
+                ui.WriteIntoDescription("Your mind expands, and suddenly your body is like an open book. Everything makes sense.", 2);
+
+                p.statuses.Add(StatusID.ReadTheFlesh);
+                EventHandler<DayEndEventArgs> action = null;
+                action = delegate (object sender, DayEndEventArgs args) {
+                    p.statuses.Remove(StatusID.ReadTheFlesh);
+                    e.dayEnd -= action;
+                };
+                e.dayEnd += action;
+            });
+
+            effects.Add(SpellRecipeID.SupernalEyes, delegate (IUserInterface ui, Player p, Engine e) {
+                ui.WriteIntoDescription("The layers of the world peel away before you, and for now you can truly ", 0);
+                ui.WriteIntoDescription("see.", ConsoleColor.Cyan, ConsoleColor.Black, 2);
+
+                p.statuses.Add(StatusID.SupernalEyes);
+                EventHandler<DayEndEventArgs> action = null;
+                action = delegate (object sender, DayEndEventArgs args) {
+                    p.statuses.Remove(StatusID.SupernalEyes);
+                    e.dayEnd -= action;
+                };
+                e.dayEnd += action;
+            });
+
+            return effects;
         }
     }
 }

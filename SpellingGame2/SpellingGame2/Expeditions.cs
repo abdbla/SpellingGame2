@@ -41,8 +41,8 @@ namespace SpellingGame2
 
             expeditions.Add(ExpeditionID.Store,
                 delegate (IUserInterface ui, Player p) {
-                    if (p.actions < 1) { ui.WriteIntoDescription("You're too tired to go to the store, especially not at this time of day.", 2); }
-                    if (p.money < 10) { ui.WriteIntoDescription("You're practically broke. You wouldn't be able to get anything useful at the store, anyway.", 2); }
+                    if (p.actions < 1) { ui.WriteIntoDescription("You're too tired to go to the store, especially not at this time of day.", 2); return new List<ObjectID>(); }
+                    if (p.money < 10) { ui.WriteIntoDescription("You're practically broke. You wouldn't be able to get anything useful at the store, anyway.", 2); return new List<ObjectID>(); }
 
                     p.actions--;
                     p.money -= 10;

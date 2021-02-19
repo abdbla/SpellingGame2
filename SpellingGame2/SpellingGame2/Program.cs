@@ -13,7 +13,7 @@ namespace SpellingGame2
         static void Main(string[] args) { //start of game setup
             CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
             engine.dayEnd += player.RestoreStats;
-            player.knownRituals.AddRange(new List<SpellRecipeID>() { SpellRecipeID.MinorLuck, SpellRecipeID.NaturalHealing, SpellRecipeID.ReadTheFlesh });
+            player.knownRituals.AddRange(new List<SpellRecipeID>() { SpellRecipeID.MinorLuck, SpellRecipeID.NaturalHealing, SpellRecipeID.ReadTheFlesh, SpellRecipeID.SupernalEyes });
             player.money += 200;
             player.statuses.Add(StatusID.ArcaneMind);
             userInterface.OptionSelected += delegate (object sender, InterfaceEventArgs e) { };
@@ -211,17 +211,41 @@ namespace SpellingGame2
 
         static void RitualMenu() {
             userInterface.ChangeTitle("The Adytum");
-            List<string> statuses = new List<string>();
+            userInterface.WriteIntoDescription("You have several rituals at your disposal. Which one would you like to use?", 2);
             foreach (var item in player.knownRituals) {
-                string temp = item.ToName() + ": " + data.recipes[item].desc;
-                statuses.Add(temp);
+                userInterface.WriteIntoDescription(item.ToName() + ": " + data.recipes[item].desc, 1);
             }
-            userInterface.SetStatus(statuses);
+            userInterface.WriteIntoDescription("", 1);
+            userInterface.SetStatus(new List<string>() { });
             List<string> options = new List<string>();
             foreach (var item in player.knownRituals) {
                 options.Add(item.ToName());
             }
+            options.Add("Go back");
             userInterface.SetOptions("rituals", options);
+
+            while (true) {
+                try {
+                    string input = userInterface.GetInput();
+                    bool requiredEssentia = true;
+                    foreach (var item in data.recipes[input.ToID()].aspects) {
+                        int value;
+                        if (!player.essentia.TryGetValue(item.Item1, out value) || value < item.Item2) {
+                            requiredEssentia = false;
+                        }
+                    }
+                    if (requiredEssentia) {
+                        Effects.GetEffects()[input.ToID()](userInterface, player, engine);
+                        foreach (var item in data.recipes[input.ToID()].aspects) {
+                            player.essentia[item.Item1] -= item.Item2;
+                        }
+                    } else {
+                        userInterface.WriteIntoDescription("You do not have the required essentia for that ritual.", 2);
+                    }
+                } catch {
+                    return;
+                }
+            }
         }
 
         static void BedroomMenu() {
