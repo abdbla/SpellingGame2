@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpellingGame2
 {
-    interface IUserInterface
+    public interface IUserInterface
     {
         event EventHandler<InterfaceEventArgs> OptionSelected;
 
@@ -20,7 +20,7 @@ namespace SpellingGame2
         public string GetInput();
     }
 
-    class InterfaceEventArgs : EventArgs
+    public class InterfaceEventArgs : EventArgs
     {
         string choiceId;
         string option;

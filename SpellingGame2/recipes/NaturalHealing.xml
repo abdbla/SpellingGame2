@@ -17,4 +17,5 @@
     </ValueTupleOfPracticeLore>
   </practices>
   <id>NaturalHealing</id>
+  <desc>Speeds up the natural regeneration of a living thing.</desc>
 </SpellRecipe>

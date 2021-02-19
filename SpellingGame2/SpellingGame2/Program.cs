@@ -15,6 +15,7 @@ namespace SpellingGame2
             engine.dayEnd += player.RestoreStats;
             player.knownRituals.AddRange(new List<SpellRecipeID>() { SpellRecipeID.MinorLuck, SpellRecipeID.NaturalHealing, SpellRecipeID.ReadTheFlesh });
             player.money += 200;
+            player.statuses.Add(StatusID.ArcaneMind);
             userInterface.OptionSelected += delegate (object sender, InterfaceEventArgs e) { };
             engine.dayEnd += player.GenerateCommissions;
             player.GenerateCommissions();
@@ -168,7 +169,7 @@ namespace SpellingGame2
                             }
                             break;
                         case "decline":
-                            userInterface.WriteIntoDescription("Ah, I see. Well, in that case, I wish you good luck.", 2);
+                            userInterface.WriteIntoDescription("Ah, I see. Well, in that case, I wish you good luck.", ConsoleColor.Blue, ConsoleColor.Black, 2);
                             player.commissions.RemoveAt(0);
                             break;
                         case "go back":
@@ -209,7 +210,18 @@ namespace SpellingGame2
         }
 
         static void RitualMenu() {
-
+            userInterface.ChangeTitle("The Adytum");
+            List<string> statuses = new List<string>();
+            foreach (var item in player.knownRituals) {
+                string temp = item.ToName() + ": " + data.recipes[item].desc;
+                statuses.Add(temp);
+            }
+            userInterface.SetStatus(statuses);
+            List<string> options = new List<string>();
+            foreach (var item in player.knownRituals) {
+                options.Add(item.ToName());
+            }
+            userInterface.SetOptions("rituals", options);
         }
 
         static void BedroomMenu() {
@@ -228,7 +240,16 @@ namespace SpellingGame2
         }
 
         static void PlayerMenu() {
-
+            userInterface.ChangeTitle("The Mirror on the Wall");
+            userInterface.SetOptions("you", new List<string>() { "Go back" });
+            userInterface.WriteIntoDescription("It's you.", 2);
+            userInterface.WriteIntoDescription("Effects currently affecting you:", 1);
+            foreach (var item in player.statuses)
+            {
+                userInterface.WriteIntoDescription($"[{item.StatusName()}]: {item.StatusDesc()}", 1);
+            }
+            userInterface.WriteIntoDescription("", 1);
+            userInterface.GetInput();
         }
     }
 }

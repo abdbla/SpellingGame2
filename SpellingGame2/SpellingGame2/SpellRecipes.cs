@@ -37,12 +37,14 @@ namespace SpellingGame2
     {
         public List<(Aspect, int)> aspects;
         public List<(Practice, Lore)> practices;
+        public string desc;
         public SpellRecipeID id;
 
         public SpellRecipe(List<(Aspect, int)> _aspects, List<(Practice, Lore)> _practices, SpellRecipeID _id) {
             aspects = _aspects;
             practices = _practices;
             id = _id;
+            desc = "default";
         }
 
         public override bool Equals(object obj) {
@@ -69,6 +71,26 @@ namespace SpellingGame2
         SupernalEyes,
         NaturalHealing,
         TestRecipe
+    }
+
+    public static class SpellRecipeIDExtensions
+    {
+        public static string ToName(this SpellRecipeID id)
+        {
+            switch (id)
+            {
+                case SpellRecipeID.MinorLuck:
+                    return "Minor Blessing of Luck";
+                case SpellRecipeID.ReadTheFlesh:
+                    return "Read the Flesh";
+                case SpellRecipeID.SupernalEyes:
+                    return "Supernal Eyes";
+                case SpellRecipeID.NaturalHealing:
+                    return "Natural Healing";
+                default:
+                    return "Default Recipe";
+            }
+        }
     }
 
     [Serializable]
@@ -195,7 +217,16 @@ namespace SpellingGame2
                 case Aspect.Vis:
                     return Rarity.Complex;
             }
+        }
+    }
+    public static class Effects
+    {
+        public static Dictionary<SpellRecipeID, Action<IUserInterface, Player>> GetEffects() {
+            Dictionary<SpellRecipeID, Action<IUserInterface, Player>> effects = new Dictionary<SpellRecipeID, Action<IUserInterface, Player>>();
 
+            effects.Add(SpellRecipeID.MinorLuck, delegate(IUserInterface ui, Player p) {
+                p.statuses.Add(StatusID.MinorLuck);
+            })
         }
     }
 }

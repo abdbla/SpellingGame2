@@ -17,4 +17,5 @@
     </ValueTupleOfPracticeLore>
   </practices>
   <id>TestRecipe</id>
+  <desc>default</desc>
 </SpellRecipe>

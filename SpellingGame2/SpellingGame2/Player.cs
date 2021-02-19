@@ -12,6 +12,7 @@ namespace SpellingGame2
         public List<ObjectID> objects;
         public List<SpellRecipeID> knownRituals;
         public List<CommissionID> commissions;
+        public List<StatusID> statuses;
         public Dictionary<ObjectID, bool> researchedObjects;
         public EventHandler useAction;
         public int money = 0;
@@ -23,6 +24,7 @@ namespace SpellingGame2
             lore = new Dictionary<Lore, int>();
             objects = new List<ObjectID>();
             researchedObjects = new Dictionary<ObjectID, bool>();
+            statuses = new List<StatusID>();
             foreach (var item in Enum.GetValues(ObjectID.TestObject.GetType())) {
                 researchedObjects.Add((ObjectID)item, false);
             }
@@ -45,6 +47,51 @@ namespace SpellingGame2
 
         public void GenerateCommissions(object sender, DayEndEventArgs e) {
             GenerateCommissions();
+        }
+    }
+
+    public enum StatusID
+    {
+        ArcaneMind,
+        SupernalEyes,
+        MinorLuck,
+        ReadTheFlesh
+    }
+
+    public static class StatusExtensions
+    {
+        public static string StatusDesc(this StatusID id)
+        {
+            switch (id)
+            {
+                case StatusID.ArcaneMind:
+                    return "Your mind is like glass, a prism, thoughts as light, trapped within.";
+                case StatusID.SupernalEyes:
+                    return "You see the essentia that lies behind all things.";
+                case StatusID.MinorLuck:
+                    return "You feel a little lucky.";
+                case StatusID.ReadTheFlesh:
+                    return "Living things unveil their conditions to you, like words on paper.";
+                default:
+                    return "An error has occurred.";
+            }
+        }
+
+        public static string StatusName(this StatusID id)
+        {
+            switch (id)
+            {
+                case StatusID.ArcaneMind:
+                    return "Arcane Mind";
+                case StatusID.SupernalEyes:
+                    return "Supernal Eyes";
+                case StatusID.MinorLuck:
+                    return "Minor Luck";
+                case StatusID.ReadTheFlesh:
+                    return "Read the Flesh";
+                default:
+                    return "An error has occurred.";
+            }
         }
     }
 }
