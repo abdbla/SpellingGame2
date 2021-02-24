@@ -11,7 +11,12 @@ namespace SpellingGame2
             Dictionary<ObjectID, Action<IUserInterface, Player, Engine>> research = new Dictionary<ObjectID, Action<IUserInterface, Player, Engine>>();
             research.Add(ObjectID.UnceasingTop, delegate (IUserInterface ui, Player p, Engine e)
             {
-
+                while (true) {
+                    switch (ui.GetInput()) {
+                        default:
+                            break;
+                    }
+                }
             });
 
             return research;
